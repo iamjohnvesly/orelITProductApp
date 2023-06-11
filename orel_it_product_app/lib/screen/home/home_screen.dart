@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'location/location_screen.dart';
+import 'package:ui_design_quotes/screen/home/product/product_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final String refreshToken;
@@ -10,7 +9,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: SafeArea(child: LocationPage())),
+      home: Scaffold(body: SafeArea(child: ProductScreen())),
     );
   }
 }
