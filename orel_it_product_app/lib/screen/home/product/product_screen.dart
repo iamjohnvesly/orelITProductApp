@@ -57,18 +57,18 @@ class _ProductScreenState extends State<ProductScreen> {
           ),
           // HomeScreen Menu Photo
           Padding(
-            padding: const EdgeInsets.only(right: 24, left: 24),
+            padding: const EdgeInsets.only(right: 8, left: 8),
             child: Material(
               child: Container(
                 padding: const EdgeInsets.only(left: 24, top: 24, right: 24),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
+                decoration: const BoxDecoration(
+                  // borderRadius: BorderRadius.circular(50),
                   // color: Colors.red,
-                  image: const DecorationImage(
+                  image: DecorationImage(
                       image: AssetImage('assets/images/menu.png'),
                       fit: BoxFit.fill),
                 ),
-                height: 270,
+                height: 200,
                 width: 400,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
