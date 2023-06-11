@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:ui_design_quotes/theme/base_color.dart';
 
 import '../../../widget/appbar/default.dart';
 
@@ -79,78 +80,10 @@ class _LocationPageState extends State<LocationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   backgroundColor: Colors.transparent,
-      //   leading: DropdownButton(
-      //     icon: const Icon(Icons.menu),
-      //     items: const [
-      //       DropdownMenuItem(
-      //         value: 'option1',
-      //         child: Text('Option 1'),
-      //       ),
-      //       DropdownMenuItem(
-      //         value: 'option2',
-      //         child: Text('Option 2'),
-      //       ),
-      //       DropdownMenuItem(
-      //         value: 'option3',
-      //         child: Text('Option 3'),
-      //       ),
-      //     ],
-      //     onChanged: (value) {
-      //       // Handle dropdown item selection
-      //       print('Selected: $value');
-      //     },
-      //   ),
-      //   actions: [
-      //     Padding(
-      //       padding: const EdgeInsets.only(right: 8.0),
-      //       child: Stack(
-      //         children: [
-      //           IconButton(
-      //             icon: const Icon(
-      //               Icons.notifications_none_outlined,
-      //               color: Colors.black,
-      //             ),
-      //             onPressed: () {
-      //               // Handle notification icon press
-      //               print('Notification icon pressed');
-      //             },
-      //           ),
-      //           Positioned(
-      //             right: 8,
-      //             top: 8,
-      //             child: Container(
-      //               padding: const EdgeInsets.all(2),
-      //               decoration: BoxDecoration(
-      //                 color: Colors.orange,
-      //                 borderRadius: BorderRadius.circular(8),
-      //               ),
-      //               constraints: const BoxConstraints(
-      //                 minWidth: 16,
-      //                 minHeight: 16,
-      //               ),
-      //               child: const Text(
-      //                 '2',
-      //                 style: TextStyle(
-      //                   color: Colors.black,
-      //                   fontSize: 10,
-      //                 ),
-      //                 textAlign: TextAlign.center,
-      //               ),
-      //             ),
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //   ],
-      // ),
-
       appBar: DefaultAppbar(
-        backgroundColor: Colors.white,
+        backgroundColor: appWhite,
+        textColor: appBlack,
       ),
-
       body: SafeArea(
         child: Center(
           child: Column(

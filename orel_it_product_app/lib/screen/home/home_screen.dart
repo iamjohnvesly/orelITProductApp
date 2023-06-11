@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: Center(child: LocationPage())),
+      home: Scaffold(body: SafeArea(child: LocationPage())),
     );
   }
 }
