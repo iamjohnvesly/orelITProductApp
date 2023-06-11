@@ -82,7 +82,7 @@ class _ProductScreenState extends State<ProductScreen> {
                               Text('Welcome',
                                   style: TextStyle(
                                       color: appBlack,
-                                      fontSize: 16,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                       letterSpacing: 1.0)),
                               SizedBox(
@@ -102,6 +102,43 @@ class _ProductScreenState extends State<ProductScreen> {
               ),
             ),
           ),
+
+          const SizedBox(
+            height: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0, left: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Recommended For you',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                Row(
+                  children: const [
+                    Text(
+                      'Shop More',
+                      style: TextStyle(color: appRed, fontSize: 16),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios_outlined,
+                      color: appRed,
+                      size: 10,
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          // GridView of Products
+          const Text('hi')
         ],
       ),
     );
