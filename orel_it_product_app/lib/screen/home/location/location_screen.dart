@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:ui_design_quotes/theme/base_color.dart';
+
+import '../../../widget/appbar/default.dart';
 
 class LocationPage extends StatefulWidget {
   const LocationPage({Key? key}) : super(key: key);
@@ -77,6 +80,10 @@ class _LocationPageState extends State<LocationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: DefaultAppbar(
+        backgroundColor: appWhite,
+        textColor: appBlack,
+      ),
       body: SafeArea(
         child: Center(
           child: Column(
