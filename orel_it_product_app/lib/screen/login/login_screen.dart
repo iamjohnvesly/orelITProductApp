@@ -28,7 +28,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
       // Handle the response here
       if (response['error_code'] == null) {
-        print('*****>: ${response.statusCode}');
         String refreshToken = response['refresh_token'];
         Navigator.push(
             context,
