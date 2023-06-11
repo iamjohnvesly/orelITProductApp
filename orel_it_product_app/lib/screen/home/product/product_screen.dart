@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_design_quotes/theme/base_color.dart';
@@ -26,19 +27,47 @@ class _ProductScreenState extends State<ProductScreen> {
   List<Product> products = [];
 
   Future<void> fetchData() async {
-    final response = await http.get(Uri.parse(
-        'https://8c155025-93d6-4ead-a36d-9afdf9c1f291.mock.pstmn.io/recommend/items?page=0'));
+    final dio = Dio(); // Create a new Dio instance
 
-    if (response.statusCode == 200) {
-      final jsonBody = response.body;
-      final productResponse = ProductResponse.fromJson(jsonDecode(jsonBody));
+    dio.interceptors.add(InterceptorsWrapper(
+      onError: (DioException error, ErrorInterceptorHandler handler) {
+        if (error.response?.statusCode == 401) {
+          // Handle 401 Unauthorized error
+          print('Unauthorized error');
+        } else if (error.response?.statusCode == 403) {
+          // Handle 403 Forbidden error
+          print('Forbidden error');
+        } else if (error.response?.statusCode == 500) {
+          // Handle 500 Internal Server Error
+          print('Internal Server Error');
+        } else {
+          // Handle other errors
+          print('Request failed with status: ${error.response?.statusCode}');
+        }
 
-      setState(() {
-        products = productResponse.data.products;
-      });
-    } else {
-      // Handle error
-      print('Request failed with status: ${response.statusCode}');
+        handler.next(error);
+      },
+    ));
+
+    try {
+      final response = await dio.get(
+        'https://8c155025-93d6-4ead-a36d-9afdf9c1f291.mock.pstmn.io/recommend/items?page=0',
+      );
+
+      if (response.statusCode == 200) {
+        final jsonBody = response.data;
+        final productResponse = ProductResponse.fromJson(jsonBody);
+
+        setState(() {
+          products = productResponse.data.products;
+        });
+      } else {
+        // Handle error
+        print('Request failed with status: ${response.statusCode}');
+      }
+    } catch (error) {
+      // Handle Dio error
+      print('Dio request failed with error: $error');
     }
   }
 

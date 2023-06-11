@@ -85,7 +85,7 @@ class Product {
 
 class ProductImage {
   final int order;
-  final Uri url;
+  final String url;
 
   ProductImage({
     required this.order,
@@ -93,9 +93,12 @@ class ProductImage {
   });
 
   factory ProductImage.fromJson(Map<String, dynamic> json) {
+    String urlValue = json['url'].toString();
+    // Add double quotes around the URL value
+    urlValue = '"$urlValue"';
     return ProductImage(
       order: json['order'],
-      url: Uri.parse(json['url'].toString().trim().replaceAll(" ", "")),
+      url: urlValue,
     );
   }
 }
