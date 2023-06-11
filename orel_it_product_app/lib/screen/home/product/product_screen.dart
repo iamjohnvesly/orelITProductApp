@@ -12,15 +12,15 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   TextEditingController controller = TextEditingController();
-  String _currentAddress = '';
-  _getCurrentAddress() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _currentAddress = prefs.getString('currentLocation') ?? '';
-  }
+  // String? _currentAddress;
+  // _getCurrentAddress() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   _currentAddress = prefs.getString('currentLocation') ?? '';
+  // }
 
   @override
   void initState() {
-    _getCurrentAddress();
+    // _getCurrentAddress();
     super.initState();
   }
 
@@ -95,12 +95,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                       letterSpacing: 1.0)),
                             ],
                           ),
-                          Text(_currentAddress,
-                              style: const TextStyle(
-                                  color: appBlack,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1.0)),
+                          //
                         ],
                       ),
                     ]),

@@ -84,15 +84,15 @@ class _DefaultAppbarState extends State<DefaultAppbar> {
     });
   }
 
-  setCurrentLocation(String currentLocation) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('currentLocation', currentLocation);
-  }
+  // setCurrentLocation(String currentLocation) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setString('currentLocation', currentLocation);
+  // }
 
   @override
   void initState() {
     _getCurrentPosition();
-    setCurrentLocation(_currentAddress.toString());
+    // setCurrentLocation(_currentAddress.toString());
     super.initState();
   }
 
