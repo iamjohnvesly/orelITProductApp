@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../api/api_client.dart';
 import '../../theme/base_text_style.dart';
 import '../../widget/button.dart';
 import '../../widget/common_text_field.dart';
 import '../forgot_password/forgot_password_screen.dart';
+import '../home/home_screen.dart';
 import '../sign_up/sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,6 +19,36 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final ApiClient _apiClient = ApiClient();
+
+  Future<void> performLogin(context) async {
+    try {
+      final response = await _apiClient.loginAPI(
+          email: emailController.text, password: passwordController.text);
+
+      // Handle the response here
+      if (response['error_code'] == null) {
+        String refreshToken = response['refresh_token'];
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => HomeScreen(
+                      refreshToken: refreshToken,
+                    )));
+        emailController.clear();
+        passwordController.clear();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: const Text('Error: Invalid Email or Password'),
+          backgroundColor: Colors.pinkAccent[400],
+        ));
+      }
+    } catch (e) {
+      // Handle any errors that occur during the login process
+      print('error');
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ButtonFilled(
                         lable: 'Login',
                         action: () {
-                          print(emailController.text);
-                          print(passwordController.text);
+                          performLogin(context);
                         }),
                     const SizedBox(
                       height: 1,
