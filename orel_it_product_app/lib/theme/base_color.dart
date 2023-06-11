@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+const Color colorPrimary = Color(0xff0E163D);
+const Color appBlack = Color(0xff000000);
+const Color appWhite = Color(0xffFFFFFF);
+const Color textFieldBorder = Color.fromRGBO(0, 0, 0, 0.5);
+const Color appRed = Color(0xffF05244);
+const Color appGrey = Color(0xffE9E9E9);
+
 class BaseColorTheme {
   BaseColorTheme._(); // this basically makes it so you can instantiate this class
 

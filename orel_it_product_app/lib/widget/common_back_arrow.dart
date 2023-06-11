@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 Widget commonbackArrowButton(context) {
   return InkWell(
-    splashColor: Colors.transparent,
-    highlightColor: Colors.transparent,
+    splashColor: Colors.black,
+    highlightColor: Colors.black,
     onTap: () {
       Navigator.pop(context);
     },

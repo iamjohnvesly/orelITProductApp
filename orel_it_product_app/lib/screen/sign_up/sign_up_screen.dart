@@ -4,14 +4,15 @@ import '../../theme/base_text_style.dart';
 import '../../widget/button.dart';
 import '../../widget/common_text_field.dart';
 
-class ForgotPasswordScreen extends StatelessWidget {
-  const ForgotPasswordScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
-    TextEditingController emailForgotPasswordController =
-        TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController nameController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
 
     return MaterialApp(
       home: Scaffold(
@@ -35,11 +36,11 @@ class ForgotPasswordScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'FORGOT YOUR',
+                      'Don\'t have an account',
                       style: TextStyle(fontSize: 30),
                     ),
                     Text(
-                      'PASSWORD?',
+                      'SIGN UP?',
                       style: TextStyle(
                           color: Colors.indigo[900],
                           fontSize: 50,
@@ -51,6 +52,26 @@ class ForgotPasswordScreen extends StatelessWidget {
                   height: 40,
                 ),
                 commonTextField(
+                  hintText: 'Enter Fullname',
+                  prefix: const Icon(
+                    Icons.motion_photos_auto_rounded,
+                    color: Colors.black,
+                  ),
+                  hintStyle: commonTextFieldTextStyle.copyWith(
+                      color: const Color(0xff000000).withOpacity(0.3)),
+                  controller: emailController,
+                  textAlign: TextAlign.start,
+                  validator: (val) {
+                    if (nameController.text.isEmpty) {
+                      return "Enter Text";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                commonTextField(
                   hintText: 'Enter Email address',
                   prefix: const Icon(
                     Icons.email_outlined,
@@ -58,10 +79,30 @@ class ForgotPasswordScreen extends StatelessWidget {
                   ),
                   hintStyle: commonTextFieldTextStyle.copyWith(
                       color: const Color(0xff000000).withOpacity(0.3)),
-                  controller: emailForgotPasswordController,
+                  controller: emailController,
                   textAlign: TextAlign.start,
                   validator: (val) {
-                    if (emailForgotPasswordController.text.isEmpty) {
+                    if (emailController.text.isEmpty) {
+                      return "Enter Text";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                commonTextField(
+                  hintText: 'Enter Password',
+                  prefix: const Icon(
+                    Icons.lock_outline,
+                    color: Colors.black,
+                  ),
+                  hintStyle: commonTextFieldTextStyle.copyWith(
+                      color: const Color(0xff000000).withOpacity(0.3)),
+                  controller: emailController,
+                  textAlign: TextAlign.start,
+                  validator: (val) {
+                    if (passwordController.text.isEmpty) {
                       return "Enter Text";
                     }
                     return null;
