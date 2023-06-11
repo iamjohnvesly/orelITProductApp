@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:ui_design_quotes/theme/base_color.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DefaultAppbar extends StatefulWidget with PreferredSizeWidget {
   @override
@@ -83,9 +84,15 @@ class _DefaultAppbarState extends State<DefaultAppbar> {
     });
   }
 
+  setCurrentLocation(String currentLocation) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('currentLocation', currentLocation);
+  }
+
   @override
   void initState() {
     _getCurrentPosition();
+    setCurrentLocation(_currentAddress.toString());
     super.initState();
   }
 
