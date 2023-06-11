@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ui_design_quotes/theme/base_color.dart';
 import 'package:ui_design_quotes/widget/appbar/default.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import '../../../api/api_client.dart';
+import '../../../model/product_model.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -12,15 +16,36 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   TextEditingController controller = TextEditingController();
+  final ApiClient apiClient = ApiClient();
+
   // String? _currentAddress;
   // _getCurrentAddress() async {
   //   SharedPreferences prefs = await SharedPreferences.getInstance();
   //   _currentAddress = prefs.getString('currentLocation') ?? '';
   // }
+  List<Product> products = [];
+
+  Future<void> fetchData() async {
+    final response = await http.get(Uri.parse(
+        'https://8c155025-93d6-4ead-a36d-9afdf9c1f291.mock.pstmn.io/recommend/items?page=0'));
+
+    if (response.statusCode == 200) {
+      final jsonBody = response.body;
+      final productResponse = ProductResponse.fromJson(jsonDecode(jsonBody));
+
+      setState(() {
+        products = productResponse.data.products;
+      });
+    } else {
+      // Handle error
+      print('Request failed with status: ${response.statusCode}');
+    }
+  }
 
   @override
   void initState() {
     // _getCurrentAddress();
+    fetchData();
     super.initState();
   }
 
@@ -138,7 +163,7 @@ class _ProductScreenState extends State<ProductScreen> {
             height: 10,
           ),
           // GridView of Products
-          const Text('hi')
+          products.isNotEmpty ? Text(products[0].name) : const Text('loading')
         ],
       ),
     );
