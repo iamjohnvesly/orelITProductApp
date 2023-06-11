@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../api/api_client.dart';
+import '../../theme/base_text_style.dart';
 import '../../widget/button.dart';
+import '../../widget/common_text_field.dart';
 import '../forgot_password/forgot_password_screen.dart';
+import '../home/home_screen.dart';
+import '../sign_up/sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,6 +19,36 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final ApiClient _apiClient = ApiClient();
+
+  Future<void> performLogin(context) async {
+    try {
+      final response = await _apiClient.loginAPI(
+          email: emailController.text, password: passwordController.text);
+
+      // Handle the response here
+      if (response['error_code'] == null) {
+        String refreshToken = response['refresh_token'];
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => HomeScreen(
+                      refreshToken: refreshToken,
+                    )));
+        emailController.clear();
+        passwordController.clear();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: const Text('Error: Invalid Email or Password'),
+          backgroundColor: Colors.pinkAccent[400],
+        ));
+      }
+    } catch (e) {
+      // Handle any errors that occur during the login process
+      print('error');
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,55 +74,96 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: double.infinity,
                 child: Column(
                   children: [
-                    TextFormField(
+                    commonTextField(
+                      hintText: 'Enter Email address',
+                      prefix: const Icon(
+                        Icons.email_outlined,
+                        color: Colors.black,
+                      ),
+                      hintStyle: commonTextFieldTextStyle.copyWith(
+                          color: const Color(0xff000000).withOpacity(0.3)),
                       controller: emailController,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(), labelText: 'Email'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Enter your email";
-                        } else {
-                          return null;
+                      textAlign: TextAlign.start,
+                      validator: (val) {
+                        if (emailController.text.isEmpty) {
+                          return "Enter Text";
                         }
+                        return null;
                       },
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    TextFormField(
+                    commonTextField(
+                      hintText: 'Enter Password',
+                      prefix: const Icon(
+                        Icons.lock_outlined,
+                        color: Colors.black,
+                      ),
+                      isPass: true,
+                      change: (val) {
+                        setState(() {});
+                      },
+                      hintStyle: commonTextFieldTextStyle.copyWith(
+                          color: const Color(0xff000000).withOpacity(0.3)),
                       controller: passwordController,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(), labelText: 'Password'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Enter your email";
-                        } else {
-                          return null;
+                      textAlign: TextAlign.start,
+                      validator: (val) {
+                        if (passwordController.text.isEmpty) {
+                          return "Enter your password";
                         }
                       },
+                      onFieldSubmitted: (p0) {},
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    ButtonFilled(lable: 'Login', action: () {}),
+                    ButtonFilled(
+                        lable: 'Login',
+                        action: () {
+                          performLogin(context);
+                        }),
                     const SizedBox(
                       height: 1,
                     ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ForgotPasswordScreen()));
-                          },
-                          child: Text(
-                            'Forgot Password',
-                            style: TextStyle(
-                                color: Colors.indigo[900], letterSpacing: 2.0),
-                          )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SignUpScreen()));
+                              },
+                              child: Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                    color: Colors.indigo[900],
+                                    letterSpacing: 2.0),
+                              )),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ForgotPasswordScreen()));
+                              },
+                              child: Text(
+                                'Forgot Password',
+                                style: TextStyle(
+                                    color: Colors.indigo[900],
+                                    letterSpacing: 2.0),
+                              )),
+                        ),
+                      ],
                     ),
                   ],
                 )),
