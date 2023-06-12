@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../../api/api_client.dart';
@@ -21,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
   final ApiClient _apiClient = ApiClient();
 
-  Future<void> performLogin(context) async {
+  Future<void> performLogin(BuildContext context) async {
     try {
       final response = await _apiClient.loginAPI(
           email: emailController.text, password: passwordController.text);
@@ -30,23 +31,26 @@ class _LoginScreenState extends State<LoginScreen> {
       if (response['error_code'] == null) {
         String refreshToken = response['refresh_token'];
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => HomeScreen(
-                      refreshToken: refreshToken,
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(
+              refreshToken: refreshToken,
+            ),
+          ),
+        );
         emailController.clear();
         passwordController.clear();
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: const Text('Error: Invalid Email or Password'),
-          backgroundColor: Colors.pinkAccent[400],
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Error: Invalid Email or Password'),
+            backgroundColor: Colors.pinkAccent[400],
+          ),
+        );
       }
     } catch (e) {
       // Handle any errors that occur during the login process
-      print('error');
-      print(e);
+      _apiClient.handleError(e, context);
     }
   }
 
