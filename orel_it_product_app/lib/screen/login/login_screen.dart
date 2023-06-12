@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (e) {
       // Handle any errors that occur during the login process
-      _apiClient.handleError(e, context);
+      _apiClient.handleError(e);
     }
   }
 

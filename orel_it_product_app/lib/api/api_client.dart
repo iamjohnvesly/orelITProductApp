@@ -34,7 +34,7 @@ class ApiClient {
     }
   }
 
-  void handleError(dynamic error, BuildContext context) {
+  void handleError(dynamic error) {
     if (error is DioException) {
       final response = error.response;
       if (response?.statusCode == 401) {
