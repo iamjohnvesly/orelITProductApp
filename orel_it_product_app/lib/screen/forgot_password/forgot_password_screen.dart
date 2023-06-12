@@ -9,7 +9,7 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     TextEditingController emailForgotPasswordController =
         TextEditingController();
 
@@ -25,7 +25,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               icon: Icon(color: Colors.indigo[900], Icons.arrow_back_ios_new)),
         ),
         body: Form(
-          key: _formKey,
+          key: formKey,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(

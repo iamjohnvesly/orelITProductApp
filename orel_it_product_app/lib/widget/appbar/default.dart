@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:ui_design_quotes/theme/base_color.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DefaultAppbar extends StatefulWidget with PreferredSizeWidget {
   @override
@@ -82,9 +84,15 @@ class _DefaultAppbarState extends State<DefaultAppbar> {
     });
   }
 
+  // setCurrentLocation(String currentLocation) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setString('currentLocation', currentLocation);
+  // }
+
   @override
   void initState() {
     _getCurrentPosition();
+    // setCurrentLocation(_currentAddress.toString());
     super.initState();
   }
 
@@ -125,11 +133,8 @@ class _DefaultAppbarState extends State<DefaultAppbar> {
           child: Stack(
             children: [
               IconButton(
-                icon: Icon(Icons.notifications_none_outlined),
-                onPressed: () {
-                  // Handle notification icon press
-                  print('Notification icon pressed');
-                },
+                icon: const Icon(Icons.notifications_none_outlined),
+                onPressed: () {},
               ),
               Positioned(
                 right: 8,
@@ -137,7 +142,7 @@ class _DefaultAppbarState extends State<DefaultAppbar> {
                 child: Container(
                   padding: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
-                    color: Colors.orange,
+                    color: appRed,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   constraints: const BoxConstraints(
@@ -147,7 +152,7 @@ class _DefaultAppbarState extends State<DefaultAppbar> {
                   child: const Text(
                     '2',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: appWhite,
                       fontSize: 10,
                     ),
                     textAlign: TextAlign.center,
