@@ -78,7 +78,7 @@ class Product {
       searchUrl: json['search_url'],
       name: json['name'],
       priceCurrency: json['price_currency'],
-      rate: json['rate'],
+      rate: int.parse(json['rate']),
     );
   }
 }
@@ -93,7 +93,8 @@ class ProductImage {
   });
 
   factory ProductImage.fromJson(Map<String, dynamic> json) {
-    String urlValue = json['url'].toString();
+    String urlValue = json['url'].toString().replaceAll(' ', '');
+
     // Add double quotes around the URL value
     urlValue = '"$urlValue"';
     return ProductImage(
